@@ -47,7 +47,7 @@ Boas implementações! 🎉
 - Altere o texto em *strings/program.js* 
 - Abra o cmd ou terminal e execute: 
 
-        npm run strings [charactersByLine]
+        npm run strings [charactersByLine] [justify]
         
         Parâmetros:
             [charactersByLine] -> default 40   
