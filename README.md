@@ -51,5 +51,6 @@ Boas implementações! 🎉
         
         Parâmetros:
             [charactersByLine] -> default 40   
+            [justify] -> default false   
         
 
