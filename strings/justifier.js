@@ -3,9 +3,10 @@ const {compose} = require('./utils')
 const justifyLine = ({line, charactersLeft}) => {
     let words = line.split(' ')
     const spaces = words.length - 1
-    let rest = charactersLeft - spaces
-    const max = rest < 0 ? 1 : 2
-    const min = rest < 0 ? 0 : 1
+    let factor = (charactersLeft - (charactersLeft % spaces)) / spaces
+    let rest = charactersLeft % spaces
+    const max = rest < 0 ? 1 : factor + 1
+    const min = rest < 0 ? 0 : factor
     let left = rest < 0 ? charactersLeft : rest
 
     for (let i = 0; i < words.length - 1; i++) {
@@ -13,7 +14,7 @@ const justifyLine = ({line, charactersLeft}) => {
         const isLastSpace = i === (words.length - 2)
         const hasLeft = left > 0
         let add = isEven && hasLeft ? max : min
-        add += isLastSpace && hasLeft && add !== max ? 1 : 0
+        add += isLastSpace && hasLeft && add < max ? 1 : 0
         words[i] += Array(add).fill(' ').join('')
         left -= isEven ? 1 : 0
     }
