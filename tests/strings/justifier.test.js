@@ -10,6 +10,7 @@ describe('justifier', () => {
             ['of God was hovering over the waters.', 40],
             ['the darkness he called', 30],
             ['- the first day.', 30],
+            ['God saw that the light was', 30],
         ]
         const expected = [
             'and   the  earth.   Now  the  earth  was',
@@ -18,7 +19,8 @@ describe('justifier', () => {
             'o   paralelepipedo  o  paralelepipedo  o',
             'of  God was  hovering over  the  waters.',
             'the    darkness   he    called',
-            '-      the     first      day.'
+            '-      the     first      day.',
+            'God  saw that  the  light  was'
         ]
 
         const results = lines.map(([line, charactersByLine]) =>

@@ -8,16 +8,18 @@ const justifyLine = ({line, charactersLeft}) => {
     const max = rest < 0 ? 1 : factor + 1
     const min = rest < 0 ? 0 : factor
     let left = rest < 0 ? charactersLeft : rest
+    let lastMin = -1
 
     for (let i = 0; i < words.length - 1; i++) {
         const isEven = i % 2 === 0
-        const isLastSpace = i === (words.length - 2)
         const hasLeft = left > 0
         let add = isEven && hasLeft ? max : min
-        add += isLastSpace && hasLeft && add < max ? 1 : 0
+        lastMin = add === min ? i : lastMin
         words[i] += Array(add).fill(' ').join('')
-        left -= isEven ? 1 : 0
+        left -= isEven && add === max ? 1 : 0
     }
+
+    if(left && lastMin !== -1) words[lastMin] += ' '
 
     return words.join(' ')
 }
