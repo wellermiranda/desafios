@@ -7,18 +7,29 @@ herokuPortFix()
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 const toHtml = ({threadLink, title, subreddit, upvotes, threadCommentsLink}) =>
-    `<a href="${threadLink}">${title}</a>\nSubreddit: ${subreddit} | Votes: ${upvotes} | <a href="${threadCommentsLink}">Comments</a>\n`
+    `<a href="${threadLink}">${title}</a>\nSubreddit: ${subreddit} | Votos: ${upvotes} | <a href="${threadCommentsLink}">Comentários</a>\n`
 
-bot.command('NadaPraFazer', async ({replyWithHTML, update: { message: {text} }}) => {
+bot.command('NadaPraFazer', async ({reply, telegram, deleteMessage, update: {message}}) => {
+    let loading = null
+
     try {
+        const {text, chat: {id: chatId}} = message
         let [, subreddits, punctuation] = text.split(' ')
         punctuation = (punctuation && parseInt(punctuation)) || undefined
-        const threads = (await reader(subreddits, punctuation)).map(toHtml)
-        return threads && threads.length
-            ? threads.map(html => replyWithHTML(html))
-            : replyWithHTML(`Ops, não encontrei nada relevante sobre <strong>${subreddits}</strong>.`)
-    } catch(e) {
-        return replyWithHTML(`Ops, ocorreu um erro durante a busca.`)
+
+        loading = (await reply(`Buscando...`)).message_id
+        const threads = (await reader(subreddits, punctuation))
+
+        const html = threads && threads.length
+            ? `${threads.reduce((p, c) => `${p}\n${toHtml(c)}`, '')}`
+            : `Ops, não encontrei nada relevante sobre <strong>${subreddits}</strong>.`
+
+        return telegram.sendMessage(chatId, html, {parse_mode: 'HTML', disable_web_page_preview: true})
+    } catch (e) {
+        console.error('ERROR =>', e)
+        return reply(`Ops, ocorreu um erro durante a busca.`)
+    } finally {
+        loading && await deleteMessage(loading)
     }
 })
 

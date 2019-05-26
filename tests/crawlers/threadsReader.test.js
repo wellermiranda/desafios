@@ -1,7 +1,7 @@
 jest.mock('scrape-it', () => ({scrapeHTML: jest.fn()}))
 
 const {scrapeHTML} = require('scrape-it')
-const {toInt} = require('../../utils')
+const {toInt, threadLink} = require('../../utils')
 
 const options = {
     items: {
@@ -17,7 +17,8 @@ const options = {
             },
             threadLink: {
                 selector: "a.title",
-                attr: 'href'
+                attr: 'href',
+                convert: threadLink
             },
             threadCommentsLink: {
                 selector: "ul.flat-list.buttons .first a",
