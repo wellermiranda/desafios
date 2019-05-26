@@ -13,7 +13,9 @@ bot.command('NadaPraFazer', async ({replyWithHTML, update: { message: {text} }})
     let [,subreddits, punctuation] = text.split(' ')
     punctuation = (punctuation && parseInt(punctuation)) || undefined
     const threads = (await reader(subreddits, punctuation)).map(toHtml)
-    return threads.map(html => replyWithHTML(html))
+    return threads && threads.length
+        ? threads.map(html => replyWithHTML(html))
+        : replyWithHTML(`Ops, não encontrei nada relevante sobre <strong>${subreddits}</strong>.`)
 })
 
 bot.launch()
