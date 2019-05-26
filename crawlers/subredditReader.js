@@ -6,7 +6,7 @@ const subredditReader = async (url, punctuation = 5000) => {
     const {items, next} = await threadsReader(html)
     return [
         ...items.filter(({upvotes}) => upvotes >= punctuation),
-        ...(next ? await subredditReader(next) : [])
+        ...(next && !next.match(/count=250/g) ? await subredditReader(next) : [])
     ]
 }
 

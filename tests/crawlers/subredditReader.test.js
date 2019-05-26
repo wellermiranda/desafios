@@ -76,4 +76,27 @@ describe('subredditReader', () => {
         expect(get).toBeCalledWith(`${url}?sort=top&t=day`)
         expect(threadsReader).toBeCalledWith(html)
     })
+
+    it('should stop after get 250 threads', async () => {
+        const subreddit = 'programming'
+        const url = `https://old.reddit.com/r/${subreddit}/top/`
+        const html = '<p>oi</p>'
+        const threads = [
+            {items: [{upvotes: 5000}], next: `${url}?page=2`},
+            {items: [{upvotes: 5001}], next: `${url}?page=3&count=250`},
+        ]
+        get.mockReturnValue(Promise.resolve(html))
+        threadsReader
+            .mockReturnValueOnce(Promise.resolve(threads[0]))
+            .mockReturnValueOnce(Promise.resolve(threads[1]))
+
+        const result = await subredditReader(url)
+
+        expect(result).toEqual(flat(threads.map(({items}) => items))
+            .filter(({upvotes}) => upvotes >= PUNCTUATION))
+        expect(get).toBeCalledWith(`${url}?sort=top&t=day`)
+        expect(get).not.toBeCalledWith(`${url}?page=3&count=250`)
+        expect(threadsReader).toBeCalledWith(html)
+    })
+
 })
