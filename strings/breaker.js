@@ -1,4 +1,4 @@
-const {compose} = require('./utils')
+const {compose} = require('../utils')
 const justifier = require('./justifier')
 
 const getCurrentLineWithWord = (lines, word) =>

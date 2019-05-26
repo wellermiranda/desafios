@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "scripts": {
     "test": "jest",
-    "strings": "node strings/program.js"
+    "strings": "node strings/program.js",
+    "crawlers": "node crawlers/program.js"
   },
   "devDependencies": {
     "jest": "^24.8.0"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "scrape-it": "^5.1.4"
   }
 }

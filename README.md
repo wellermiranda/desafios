@@ -53,4 +53,13 @@ Boas implementações! 🎉
             [charactersByLine] -> default 40   
             [justify] -> default false   
         
+#### Rodando Crawlers
 
+- Abra o cmd ou terminal e execute: 
+
+        npm run crawlers [subreddits]
+       
+        Exemplo: npm run crawlers dogs\;programming
+        
+        Parâmetros:
+            [subreddits] -> separated by semicolon 

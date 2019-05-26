@@ -1,4 +1,4 @@
-const {compose} = require('./utils')
+const {compose} = require('../utils')
 
 const getVariables = ({line, charactersLeft}) => {
     let words = line.split(' ')
