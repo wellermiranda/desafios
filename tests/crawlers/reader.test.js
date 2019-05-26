@@ -10,14 +10,15 @@ describe('reader', () => {
     beforeEach(subredditReader.mockReset)
 
     it('should read each subreddit', async () => {
+        const punctuation = 5000
         const subreddits = ['programming', 'dogs', 'brazil']
         subredditReader.mockImplementation(subreddit =>
             Promise.resolve([{prop: subreddits.findIndex(x => subreddit.match(x))}]))
 
-        const result = await reader(subreddits.join(separator))
+        const result = await reader(subreddits.join(separator), punctuation)
 
         expect(result).toEqual(subreddits.map((subreddit, prop) => ({prop, subreddit})))
         expect(subredditReader.mock.calls)
-            .toEqual(subreddits.map(subreddit => [getUrl(subreddit)]))
+            .toEqual(subreddits.map(subreddit => [getUrl(subreddit), punctuation]))
     })
 })

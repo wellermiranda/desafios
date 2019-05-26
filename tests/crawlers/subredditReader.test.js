@@ -55,4 +55,23 @@ describe('subredditReader', () => {
         ])
         expect(threadsReader).toBeCalledWith(html)
     })
+
+    it('should check punctuation', async () => {
+        const punctuation = 5001
+        const subreddit = 'programming'
+        const url = `https://old.reddit.com/r/${subreddit}/top/`
+        const html = '<p>oi</p>'
+        const threads = { items: [
+            { upvotes: 5002, downvotes: 1 },
+            { upvotes: 5002, downvotes: 2 }
+            ] }
+        get.mockReturnValueOnce(Promise.resolve(html))
+        threadsReader.mockReturnValueOnce(Promise.resolve(threads))
+
+        const result = await subredditReader(url, punctuation)
+
+        expect(result).toEqual([threads.items[0]])
+        expect(get).toBeCalledWith(`${url}?sort=top&t=day`)
+        expect(threadsReader).toBeCalledWith(html)
+    })
 })

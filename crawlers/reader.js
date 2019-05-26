@@ -4,10 +4,11 @@ const {flat} = require('../utils')
 const separator = ';'
 const getUrl = subreddit => `https://old.reddit.com/r/${subreddit}/top/`
 
-const getEachSubredditThreads = async subreddit =>
-    (await subredditReader(getUrl(subreddit)))
+const getEachSubredditThreads = punctuation => async subreddit =>
+    (await subredditReader(getUrl(subreddit), punctuation))
         .map(thread => ({...thread, subreddit}))
 
-const reader = async subreddits => flat(await Promise.all(subreddits.split(separator)
-    .map(getEachSubredditThreads)))
+const reader = async (subreddits, punctuation) => flat(await Promise.all(subreddits.split(separator)
+    .map(getEachSubredditThreads(punctuation))))
+
 module.exports = reader

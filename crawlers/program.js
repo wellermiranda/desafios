@@ -1,5 +1,5 @@
 const reader = require('./reader')
-const [,,subreddits] = process.argv
+const [,,subreddits, punctuation] = process.argv
 
-reader(subreddits)
+reader(subreddits, punctuation || undefined)
     .then(x => console.log(x))
