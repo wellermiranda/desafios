@@ -68,7 +68,3 @@ Boas implementações! 🎉
 #### Bot no Telegram
 
 [@weller_super_bot](https://web.telegram.org/#/im?p=@weller_super_bot)
-
-*Bot foi hospedado no Heroku em uma conta gratuíta. Caso fique muito tempo sem acessar, ele "dorme".*
-
-*Se o bot não responder, acessar a URL https://salty-castle-84936.herokuapp.com/ para "acordar" o servidor do bot.*
