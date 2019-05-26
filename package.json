@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "botgram": "^2.2.0",
-    "scrape-it": "^5.1.4"
+    "scrape-it": "^5.1.4",
+    "telegraf": "^3.29.0"
   }
 }

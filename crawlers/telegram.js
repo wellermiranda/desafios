@@ -1,18 +1,18 @@
-const bot = require("botgram")(process.env.BOT_TOKEN)
-const reader = require('./reader')
+const Telegraf = require("telegraf")
+const reader = require("../crawlers/reader")
+
+const bot = new Telegraf(process.env.BOT_TOKEN)
 
 console.log('BOT STARTED')
 
-const template = `<a href="%s">%s</a>\nSubreddit: %s | Votes: %s | <a href="%s">Comments</a>\n`
-const toParams = ({threadLink, title, subreddit, upvotes, threadCommentsLink}) =>
-    [threadLink, title, subreddit, upvotes, threadCommentsLink]
+const toHtml = ({threadLink, title, subreddit, upvotes, threadCommentsLink}) =>
+    `<a href="${threadLink}">${title}</a>\nSubreddit: ${subreddit} | Votes: ${upvotes} | <a href="${threadCommentsLink}">Comments</a>\n`
 
-bot.command("NadaPraFazer", async (msg, reply) => {
-    let [subreddits, punctuation] = msg.args(2)
+bot.command('NadaPraFazer', async ({replyWithHTML, update: { message: {text} }}) => {
+    let [,subreddits, punctuation] = text.split(' ')
     punctuation = (punctuation && parseInt(punctuation)) || undefined
-    const threads = (await reader(subreddits, punctuation)).map(toParams)
-    return threads.map(params => reply.html(template, ...params))
+    const threads = (await reader(subreddits, punctuation)).map(toHtml)
+    return threads.map(html => replyWithHTML(html))
 })
 
-bot.command((msg, reply) =>
-    reply.text("Comando inválido."))
+bot.launch()
