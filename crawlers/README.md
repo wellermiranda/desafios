@@ -24,7 +24,7 @@ Gerar e imprimir uma lista contendo número de upvotes, subreddit, título da th
 Essa parte pode ser um CLI simples, desde que a formatação da impressão fique legível.
 
 ### Parte 2
-Construir um robô que nos envie essa lista via Telegram sempre que receber o comando `/NadaPraFazer [+ Lista de subrredits]` (ex.: `/NadaPraFazer programming;dogs;brazil`)
+Construir um robô que nos envie essa lista via Telegram sempre que receber o comando `/nadaprafazer [+ Lista de subrredits]` (ex.: `/nadaprafazer programming;dogs;brazil`)
 
 ### Dicas
  - Use https://old.reddit.com/

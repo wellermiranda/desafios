@@ -9,7 +9,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN)
 const toHtml = ({threadLink, title, subreddit, upvotes, threadCommentsLink}) =>
     `<a href="${threadLink}">${title}</a>\nSubreddit: ${subreddit} | Votos: ${upvotes} | <a href="${threadCommentsLink}">Comentários</a>\n`
 
-bot.command('NadaPraFazer', async ({reply, telegram, deleteMessage, update: {message}}) => {
+bot.command('nadaprafazer', async ({reply, telegram, deleteMessage, update: {message}}) => {
     let loading = null
 
     try {
