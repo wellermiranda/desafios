@@ -1,9 +1,10 @@
 const Telegraf = require("telegraf")
 const reader = require("../crawlers/reader")
+const {herokuPortFix} = require("../utils")
+
+herokuPortFix()
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
-
-console.log('BOT STARTED')
 
 const toHtml = ({threadLink, title, subreddit, upvotes, threadCommentsLink}) =>
     `<a href="${threadLink}">${title}</a>\nSubreddit: ${subreddit} | Votes: ${upvotes} | <a href="${threadCommentsLink}">Comments</a>\n`
