@@ -6,12 +6,7 @@ const options = {
         listItem: "div.thing:not(.promoted)",
         data: {
             upvotes: {
-                selector: "div.score.likes",
-                attr: 'title',
-                convert: toInt
-            },
-            downvotes: {
-                selector: "div.score.dislikes",
+                selector: "div.score.unvoted",
                 attr: 'title',
                 convert: toInt
             },

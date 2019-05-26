@@ -1,4 +1,4 @@
-jest.mock('../../crawlers/http', () => ({ get: jest.fn() }))
+jest.mock('../../crawlers/http', () => ({get: jest.fn()}))
 jest.mock('../../crawlers/threadsReader', () => jest.fn())
 
 const {flat} = require('../../utils')
@@ -18,7 +18,7 @@ describe('subredditReader', () => {
         const subreddit = 'programming'
         const url = `https://old.reddit.com/r/${subreddit}/top/`
         const html = '<p>oi</p>'
-        const threads = { items: [{ upvotes: 5002, downvotes: 2 }] }
+        const threads = {items: [{upvotes: 5000}]}
         get.mockReturnValueOnce(Promise.resolve(html))
         threadsReader.mockReturnValueOnce(Promise.resolve(threads))
 
@@ -34,9 +34,9 @@ describe('subredditReader', () => {
         const url = `https://old.reddit.com/r/${subreddit}/top/`
         const html = '<p>oi</p>'
         const threads = [
-            { items: [{ upvotes: 5001, downvotes: 1 }], next: `${url}?page=2` },
-            { items: [{ upvotes: 5002, downvotes: 2 }], next: `${url}?page=3` },
-            { items: [{ upvotes: 5003, downvotes: 3 }, { upvotes: 500, downvotes: 50 }] }
+            {items: [{upvotes: 5000}], next: `${url}?page=2`},
+            {items: [{upvotes: 5001}], next: `${url}?page=3`},
+            {items: [{upvotes: 5002}, {upvotes: 500}]}
         ]
         get.mockReturnValue(Promise.resolve(html))
         threadsReader
@@ -47,7 +47,7 @@ describe('subredditReader', () => {
         const result = await subredditReader(url)
 
         expect(result).toEqual(flat(threads.map(({items}) => items))
-            .filter(({ upvotes, downvotes}) => upvotes - downvotes >= PUNCTUATION))
+            .filter(({upvotes}) => upvotes >= PUNCTUATION))
         expect(get.mock.calls).toEqual([
             [`${url}?sort=top&t=day`],
             [`${url}?page=2&sort=top&t=day`],
@@ -57,14 +57,16 @@ describe('subredditReader', () => {
     })
 
     it('should check punctuation', async () => {
-        const punctuation = 5001
+        const punctuation = 500
         const subreddit = 'programming'
         const url = `https://old.reddit.com/r/${subreddit}/top/`
         const html = '<p>oi</p>'
-        const threads = { items: [
-            { upvotes: 5002, downvotes: 1 },
-            { upvotes: 5002, downvotes: 2 }
-            ] }
+        const threads = {
+            items: [
+                {upvotes: 500},
+                {upvotes: 499}
+            ]
+        }
         get.mockReturnValueOnce(Promise.resolve(html))
         threadsReader.mockReturnValueOnce(Promise.resolve(threads))
 
