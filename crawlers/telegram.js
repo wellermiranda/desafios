@@ -18,7 +18,7 @@ bot.command('NadaPraFazer', async ({replyWithHTML, update: { message: {text} }})
             ? threads.map(html => replyWithHTML(html))
             : replyWithHTML(`Ops, não encontrei nada relevante sobre <strong>${subreddits}</strong>.`)
     } catch(e) {
-        return replyWithHTML(`Ops, ocorreu um erro durante a busca sobre <strong>${subreddits}</strong>.`)
+        return replyWithHTML(`Ops, ocorreu um erro durante a busca.`)
     }
 })
 
