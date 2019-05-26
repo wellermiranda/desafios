@@ -64,3 +64,7 @@ Boas implementações! 🎉
         Parâmetros:
             [subreddits] -> separated by semicolon 
             [punctuation] -> default 5000
+            
+#### Bot no Telegram
+
+[@weller_super_bot](https://web.telegram.org/#/im?p=@weller_super_bot)
