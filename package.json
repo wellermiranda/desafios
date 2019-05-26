@@ -2,6 +2,7 @@
   "name": "wellerson-idwall",
   "version": "1.0.0",
   "scripts": {
+    "start": "node crawlers/telegram.js",
     "test": "jest",
     "strings": "node strings/program.js",
     "crawlers": "node crawlers/program.js"
@@ -11,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "botgram": "^2.2.0",
     "scrape-it": "^5.1.4"
   }
 }

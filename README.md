@@ -57,9 +57,10 @@ Boas implementações! 🎉
 
 - Abra o cmd ou terminal e execute: 
 
-        npm run crawlers [subreddits]
+        npm run crawlers [subreddits] [punctuation]
        
-        Exemplo: npm run crawlers dogs\;programming
+        Exemplo: npm run crawlers dogs\;programming 3
         
         Parâmetros:
             [subreddits] -> separated by semicolon 
+            [punctuation] -> default 5000
