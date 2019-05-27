@@ -7,7 +7,7 @@ const getCurrentLineWithWord = (lines, word) =>
 const addWordToCurrentLineOrCreateNewLine = charactersByLine => (lines, word, line) =>
     line && line.length <= charactersByLine
         ? (lines[lines.length - 1] = line) && lines
-        : [...lines, [word]]
+        : [...lines, word]
 
 // a compose that get current line concatenating current word
 // and then change current line or create new line with current word

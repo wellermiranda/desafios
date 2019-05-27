@@ -4,7 +4,6 @@ const breaker = require('../../strings/breaker.js')
 const justifier = require('../../strings/justifier.js')
 
 describe('breaker', () => {
-
     beforeEach(justifier.mockReset)
 
     it('should break lines with default characters by line (40)', () => {
